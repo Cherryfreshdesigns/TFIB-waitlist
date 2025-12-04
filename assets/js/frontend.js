@@ -72,13 +72,35 @@
 		// Render notice if enabled
 		var noticeHtml = '';
 		if ( showNotice ) {
+			// Render icon: support Elementor ICONS control payload (object with value/library)
+			var iconHtml = '📭';
+			if ( settings.notice_icon ) {
+				try {
+					if ( typeof settings.notice_icon === 'string' ) {
+						iconHtml = settings.notice_icon;
+					} else if ( settings.notice_icon.value ) {
+						// Most icon libraries use a CSS class (e.g., Font Awesome `fas fa-envelope`)
+						// Render as an <i> element with that class. If the value looks like an SVG markup, use it directly.
+						var val = settings.notice_icon.value;
+						if ( val.trim().indexOf('<svg') === 0 ) {
+							iconHtml = val;
+						} else {
+							iconHtml = '<i class="' + val + '" aria-hidden="true"></i>';
+						}
+					}
+				} catch ( e ) {
+					// fallback to emoji
+					iconHtml = '📭';
+				}
+			}
+
 			noticeHtml = '' +
 				'<div class="tfib-waitlist__notice">' +
-				'	<div class="tfib-waitlist__notice-icon">📭</div>' +
-				'	<div class="tfib-waitlist__notice-content">' +
-				'		<h3 class="tfib-waitlist__notice-title">' + noticeTitle + '</h3>' +
-				'		<p class="tfib-waitlist__notice-description">' + noticeDesc + '</p>' +
-				'	</div>' +
+				'    <div class="tfib-waitlist__notice-icon">' + iconHtml + '</div>' +
+				'    <div class="tfib-waitlist__notice-content">' +
+				'        <h3 class="tfib-waitlist__notice-title">' + noticeTitle + '</h3>' +
+				'        <p class="tfib-waitlist__notice-description">' + noticeDesc + '</p>' +
+				'    </div>' +
 				'</div>';
 		}
 

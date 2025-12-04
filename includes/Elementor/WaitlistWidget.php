@@ -859,6 +859,7 @@ class WaitlistWidget extends Widget_Base {
 			'notice_title'          => isset( $settings['notice_title'] ) ? $settings['notice_title'] : '',
 			'notice_description'    => isset( $settings['notice_description'] ) ? $settings['notice_description'] : '',
 			'notice_position'       => isset( $settings['notice_position'] ) ? $settings['notice_position'] : 'before',
+			'notice_icon'           => isset( $settings['notice_icon'] ) ? $settings['notice_icon'] : null,
 		];
 
 		echo '<div class="' . esc_attr( $wrapper_class ) . '" data-product-id="' . esc_attr( $product_id ) . '" data-tfib-settings="' . esc_attr( wp_json_encode( $data ) ) . '"></div>';
